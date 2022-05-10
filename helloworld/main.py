@@ -8,7 +8,8 @@ app = Flask(__name__)
 @app.route("/")
 def hello_world():
     name = os.environ.get("NAME", "World")
-    return "Hello {}!".format(name)
+    redishost = os.environ.get("REDISHOST", "localhost"
+    return "Hello {}!".format(redishost)
 
 
 if __name__ == "__main__":
