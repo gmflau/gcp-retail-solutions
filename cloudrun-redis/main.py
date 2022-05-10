@@ -65,8 +65,6 @@ def add_product_to_cart():
 		
 @app.route('/')
 def products():
-	product = r.hgetall("product:1")
-	return "Hello {}!".format(product)
 	try:
 		conn = mysql.connect()
 		cursor = conn.cursor(pymysql.cursors.DictCursor)
