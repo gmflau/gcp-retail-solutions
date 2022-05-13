@@ -1,9 +1,7 @@
 import os
-import redis
 import pymysql
 from app import app
 from db_config import mysql
-from redis_config import r
 from flask import flash, session, render_template, request, redirect, url_for
 #from werkzeug import generate_password_hash, check_password_hash
 from werkzeug.security import generate_password_hash, check_password_hash
