@@ -7,7 +7,8 @@ from redis_config import r
 from flask import flash, session, render_template, request, redirect, url_for
 #from werkzeug import generate_password_hash, check_password_hash
 from werkzeug.security import generate_password_hash, check_password_hash
-		
+
+
 @app.route('/add', methods=['POST'])
 def add_product_to_cart():
 	cursor = None
@@ -70,7 +71,8 @@ def products():
 		cursor = conn.cursor(pymysql.cursors.DictCursor)
 		cursor.execute("SELECT * FROM product")
 		rows = cursor.fetchall()
-		return render_template('products.html', products=rows)
+		gcp_region = os.environ.get("GCPREGION", "Undefined")
+		return render_template('products.html', products=rows, gcp_region=gcp_region)
 	except Exception as e:
 		print(e)
 	finally:
