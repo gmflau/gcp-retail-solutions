@@ -3,9 +3,13 @@ import pymysql
 from app import app
 from db_config import mysql
 from flask import flash, session, render_template, request, redirect, url_for
-#from werkzeug import generate_password_hash, check_password_hash
 from werkzeug.security import generate_password_hash, check_password_hash
 
+
+@app.template_filter()
+def currencyFormat(value):
+	value = float(value)
+	return "${:,.2f}".format(value)
 
 @app.route('/add', methods=['POST'])
 def add_product_to_cart():
@@ -67,7 +71,7 @@ def products():
 	try:
 		conn = mysql.connect()
 		cursor = conn.cursor(pymysql.cursors.DictCursor)
-		cursor.execute("SELECT * FROM product")
+		cursor.execute("SELECT * FROM product order by code, name ASC")
 		rows = cursor.fetchall()
 		gcp_region = os.environ.get("GCPREGION", "Undefined")
 		return render_template('products.html', products=rows, gcp_region=gcp_region)
