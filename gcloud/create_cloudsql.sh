@@ -1,4 +1,9 @@
-gcloud beta sql instances create glau-retail-product-master \
+#!/bin/bash
+
+cloudsql_master=$1
+cloudsql_replica=$2
+
+gcloud beta sql instances create $cloudsql_master \
 	--cpu=2 --memory=4GB \
 	--assign-ip \
 	--availability-type=regional \
@@ -9,3 +14,8 @@ gcloud beta sql instances create glau-retail-product-master \
 	--storage-size=10 \
 	--storage-type=SSD \
 	--region=us-east1
+
+gcloud sql instances create $cloudsql_replica \
+        --master-instance-name=$cloudsql_master \
+        --region=us-west1
+
