@@ -1,0 +1,11 @@
+gcloud beta sql instances create glau-retail-product-master \
+	--cpu=2 --memory=4GB \
+	--assign-ip \
+	--availability-type=regional \
+	--enable-bin-log \
+	--database-version=MYSQL_8_0 \
+	--network=glau-vpc-network \
+	--root-password=redis \
+	--storage-size=10 \
+	--storage-type=SSD \
+	--region=us-east1
