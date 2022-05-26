@@ -3,13 +3,13 @@
 set -ex
 
 
-export cloudsql_master=glau-retail-product-master-08
-export cloudsql_replica=glau-retail-product-replica-08
-export vpc_network=glau-retail-vpc-08
-export vpc_subnet_east=glau-retail-vpc-us-east1-08
-export vpc_connector_east=glau-retail-us-east1-08
-export vpc_subnet_west=glau-retail-vpc-us-west1-08
-export vpc_connector_west=glau-retail-us-west1-08
+export cloudsql_master=glau-retail-product-master-09
+export cloudsql_replica=glau-retail-product-replica-09
+export vpc_network=glau-retail-vpc-09
+export vpc_subnet_east=glau-retail-vpc-us-east1-09
+export vpc_connector_east=glau-retail-us-east1-09
+export vpc_subnet_west=glau-retail-vpc-us-west1-09
+export vpc_connector_west=glau-retail-us-west1-09
 
 
 # Create VPC network, VPC subnets, VPC connector

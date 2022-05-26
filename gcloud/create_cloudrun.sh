@@ -19,7 +19,7 @@ gcloud run deploy $cloudrun_east1 \
 	--allow-unauthenticated
 
 gcloud run deploy $cloudrun_west1 \
-	--region=us-west1
+	--region=us-west1 \
         --image=$app_image \
         --port=8080 \
         --env-vars-file=env_vars_us_west1.yaml \
