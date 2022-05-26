@@ -1,15 +1,17 @@
 #!/bin/bash
 
 
-cloudsql_master_ip=`(gcloud sql instances describe glau-retail-product-01 | yq eval '.ipAddresses[] | select(.type == "PRIMARY") | .ipAddress')`
+cloudsql_master=$1
 
-mysql -h $cloudsql_master_ip --user=root --password=redis acme << EOF
+cloudsql_master_ip=`(gcloud sql instances describe $cloudsql_master | yq eval '.ipAddresses[] | select(.type == "PRIMARY") | .ipAddress')`
+
+mysql -h $cloudsql_master_ip --user=root --password=redis << EOF
 CREATE DATABASE IF NOT EXISTS acme;
 EOF
 
 
 mysql -h $cloudsql_master_ip --user=root --password=redis acme << EOF
-CREATE TABLE IF NOT EXISTS products (
+CREATE TABLE IF NOT EXISTS product (
 	id int unsigned COLLATE utf8mb4_unicode_ci NOT NULL AUTO_INCREMENT,
 	name varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
 	code varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -21,7 +23,7 @@ EOF
 
 
 mysql -h $cloudsql_master_ip --user=root --password=redis acme << EOF
-INSERT INTO products (id, name, code, image, price) VALUES
+INSERT INTO product (id, name, code, image, price) VALUES
 	(33, 'On Cloud X running shoes ', 'SH01', 'product-images/shoes.jpg', 150.00),
 	(84, 'Apple Macbook Pro 13', 'NB04', 'product-images/laptop.jpg', 1500.00),
 	(15, 'Canon EOS D5 MARK IV', 'DC01', 'product-images/camera.jpg', 3000.00),
