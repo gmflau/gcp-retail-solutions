@@ -35,12 +35,31 @@ export vpc_connector_west=glau-retail-us-west1-09
 
 
 export app_image=gcr.io/central-beach-194106/glau-retail-redis
-export cloudrun_east1=glau-retail-svc-east1
-export cloudrun_west1=glau-retail-svc-west1
+export cloudrun_east=glau-retail-svc-east1
+export cloudrun_west=glau-retail-svc-west1
 
 # Update env_vars_us_east1.yaml & env_vars_us_westt1.yaml before running the command below
 
 ./create_cloudrun.sh $app_image \
 	$cloudrun_east1 $vpc_connector_east $cloudsql_master \
 	$cloudrun_west1 $vpc_connector_west $cloudsql_replica
+
+
+#
+# Create load balancer & components
+#
+export neg_east=glau-retail-neg-east
+export neg_west=glau-retail-neg-west
+
+gcloud compute network-endpoint-groups create $neg_east \
+        --region=us-east1 \
+        --network=$vpc_network \
+        --network-endpoint-type=serverless \
+        --cloud-run-service=$cloudrun_east
+
+gcloud compute network-endpoint-groups create $neg_west \
+        --region=us-west1 \
+        --network=$vpc_network \
+        --network-endpoint-type=serverless \
+        --cloud-run-service=$cloudrun_west
 
