@@ -2,7 +2,6 @@
 
 set -ex
 
-
 export cloudsql_master=glau-retail-product-master-09
 export cloudsql_replica=glau-retail-product-replica-09
 export vpc_network=glau-retail-vpc-09
@@ -112,3 +111,5 @@ gcloud compute forwarding-rules create $http_content_rule \
 	--global \
 	--target-http-proxy=$http_lb_proxy \
 	--ports=80
+
+# Need to wait for about 5 to 10 minutes for the load balancer to be in service
