@@ -2,6 +2,7 @@
 
 set -ex
 
+export PROJECT_ID=$(gcloud config get-value project)
 export cloudsql_master=glau-retail-product-master-09
 export cloudsql_replica=glau-retail-product-replica-09
 export vpc_network=glau-retail-vpc-09
@@ -29,11 +30,11 @@ export vpc_connector_west=glau-retail-us-west1-09
 #
 # git clone the repo
 # cd cloudrun-redis
-# Run $ gcloud builds submit --tag gcr.io/central-beach-194106/glau-retail-redis
+# Run $ gcloud builds submit --tag gcr.io/$PROJECT_ID/glau-retail-redis
 #
 
 
-export app_image=gcr.io/central-beach-194106/glau-retail-redis
+export app_image=gcr.io/$PROJECT_ID/glau-retail-redis
 export cloudrun_east=glau-retail-svc-east1-09
 export cloudrun_west=glau-retail-svc-west1-09
 
@@ -113,3 +114,5 @@ gcloud compute forwarding-rules create $http_content_rule \
 	--ports=80
 
 # Need to wait for about 5 to 10 minutes for the load balancer to be in service
+
+
