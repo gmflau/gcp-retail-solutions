@@ -82,9 +82,9 @@ gcloud compute addresses create $lb_ipv4 \
 export backend_svc=glau-retail-backend-svc-09
 
 gcloud compute backend-services create $backend_svc \
-	--global
-#	--protocol=HTTPS \
-#	--port-name=
+	--global \
+	--protocol=HTTPS \
+	--port-name=http
 
 gcloud compute backend-services add-backend $backend_svc \
 	--network-endpoint-group=$neg_east \
@@ -106,7 +106,7 @@ gcloud compute target-http-proxies create $http_lb_proxy \
 	--url-map=$url_map
 
 export http_content_rule=glau-retail-http-content-rule-09
-gcloud compute forwarding-rules create http-content-rule \
+gcloud compute forwarding-rules create $http_content_rule \
 	--load-balancing-scheme=EXTERNAL \
 	--address=$lb_ipv4 \
 	--global \
